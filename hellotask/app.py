@@ -1,0 +1,22 @@
+from flask import Flask
+import random
+import requests
+app = Flask(__name__)
+
+@app.route("/hello")
+def helloworld():
+    data = "hello World"
+    api_url="http://127.0.0.1:5000/getname"
+    response = requests.get(api_url)
+    sub =  response.text
+    return data+"  "+sub
+    
+
+
+@app.route("/getname")
+def getname():
+    with open('name.txt', 'r') as f:
+        return random.choice(open('name.txt', 'r').readline().split())
+        
+if __name__ == "__main__":
+            app.run(debug=True)
