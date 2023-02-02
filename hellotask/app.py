@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route("/hello")
 def helloworld():
     data = "hello World"
-    api_url="http://127.0.0.1:5000/thirdapi"
+    api_url="http://127.0.0.1:5000/getname"
     response = requests.get(api_url)
     sub =  response.text
     return data+"  "+sub
@@ -20,7 +20,7 @@ def getname():
     
 @app.route("/thirdapi")
 def lastname():
-    return "Finally Compeleted"
+    return "Finally Task Compeleted"
         
 if __name__ == "__main__":
             app.run(host= '0.0.0.0')
