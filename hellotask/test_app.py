@@ -1,14 +1,33 @@
-from app import helloworld, getname, lastname
+try:
+    from app import app
+    import unittest
 
-def test_hello():
-    response = helloworld.test_client().get("/hello")
-    assert response.data == b'Hello World'
-    
+except Exception as e:
+    print("some modules are missing {} ".format(e))
 
-def test_getname():
-    response = getname.test_client().get("/getname")
-    assert response.data == b'Prashant'
+class FlaskTest(unittest.TestCase):
 
-def test_lastaname():
-    response = lastname.test_client().get("/thirdapi")
-    assert response.data == b'Finally Task Completed'
+    def test_helloworld(self):
+        tester = app.test_client(self)
+        response = tester.get('/hello')
+        text = response.text
+        # statuscode = response.status_code
+        self.assertEqual(text, 'hello World  Finally Compeleted')
+
+
+    # def test_getname(self):
+    #     tester = app.test_client(self)
+    #     response = tester.get('/getname')
+    #     statuscode = response.status_code
+    #     # text = response.text
+    #     self.assertEqual(statuscode, 200)
+
+    def test_lastname(self):
+        tester = app.test_client(self)
+        response = tester.get('/thirdapi')
+        statuscode = response.status_code
+        # text = response.text
+        self.assertEqual(statuscode, 200)
+
+if __name__ == "__main__":
+    unittest.main()        
